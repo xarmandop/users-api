@@ -1,15 +1,25 @@
 
-Set Environment variable
+#Environment variables
+# - dependecy of this: python-dotenv: dotenv support to set environment variables automatically.
+# - create a .env file
+# - .env should not be committed to repository.
 
 
+#Mongo connect
 
-#ToDo
-- Test the API's resources
-- Refresh Token (need work)
-- Logout
-- add filter option to list user
-- update user: email, password
-- Module log (need work)
+#create a user to database and avoid authentication issues
+#Super user is cceated with envirooment variables in the docker-compose file 
+#Mongo Container, enter as root user and then create other user for new database
+# example:
+#    > use usersdb
+#    > db.createUser({  user: "xarmando",  pwd: "12345",  roles: [ { role: "dbOwner", db: "usersdb" } ]  })
 
-
+# _____ ToDo _____
+#   > Remove hardcoded username and password
+#   > add Test to  the API's methods
+#   > Refresh Token (need work)
+#   > Logout
+#   > add filter option to list user
+#   > update user: email, password
+#   > Module log (need work)
 

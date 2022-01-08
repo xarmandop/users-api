@@ -1,3 +1,4 @@
+import os
 from models.user import User
 from flask import Flask, json
 from flask_restful import Api
@@ -20,20 +21,23 @@ app = Flask(__name__)
 api = Api(app)
 jwt = JWTManager(app)
 
-#This most be set as Variable environment and get
-#'import os; print(os.urandom(16))'
-app.config["JWT_SECRET_KEY"] = "super-secret-xarmandop"
-
 #By default datetime.timedelta(minutes=15)
 #app.config["JWT_ACCESS_TOKEN_EXPIRES"] = 0
 
 #app.config["JWT_REFRESH_TOKEN_EXPIRES"] = 0
 #Default: datetime.timedelta(days=30)
 
-app.config['MONGODB_SETTINGS'] = {
-    "db" : 'next_tattoo',
-    'host' : 'localhost',
-    'port' : 27017
+app.config["JWT_SECRET_KEY"] = os.environ['JWT_SECRET']
+
+#By default, Flask-MongoEngine assumes that the mongod instance is running on localhost on port 27017, 
+# and you wish to connect to the database named test.
+
+app.config["MONGODB_SETTINGS"] = {
+    'db' : os.environ['MONGODB_DATABSE'], 
+    'host': os.environ['MONGODB_HOSTNAME'],
+    'port': os.environ['MONGODB_PORT'],
+    'username': os.environ['MONGODB_USERNAME'],
+    'password': os.environ['MONGODB_PASSWORD']
 }
 
 @jwt.expired_token_loader
@@ -65,4 +69,4 @@ api.add_resource(HealthyCheck, '/healthz')
 
 if __name__ == '__main__':
     db.init_app(app)
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000)

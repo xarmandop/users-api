@@ -1,3 +1,7 @@
 .vscode/
 __pycache__*
-Dockerfile
+./venv
+.env
+/test/htmlcov
+/test/.coverage
+/test/.DS_Store
