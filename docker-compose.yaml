@@ -1,13 +1,16 @@
+# This Docker-Compose file would be used on the server to deploy 
+# all the applications/services
+
 version: '3'
 services:
 
   python:
     container_name: py-app-users
-    image: app_api_users
+    image: app-api-users:0.9.1
     depends_on: 
       - mongodb
     ports:
-      - '5000:5000'
+      - 5000:5000
     environment:
       - JWT_SECRET=jwtsecret
       - MONGODB_DATABASE=usersdb
@@ -20,7 +23,7 @@ services:
     command: mongod --auth
     image: mongo
     ports:
-      - '27017:27017'
+      - 27017:27017
     environment:
     #super admin user
       - MONGO_INITDB_ROOT_USERNAME=myAdmin
@@ -36,7 +39,7 @@ services:
     depends_on:
       - mongodb
     ports: 
-      - '8080:8081'
+      - 8080:8081
     environment:
       - ME_CONFIG_MONGODB_ADMINUSERNAME=myAdmin
       - ME_CONFIG_MONGODB_ADMINPASSWORD=secret

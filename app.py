@@ -33,9 +33,9 @@ app.config["JWT_SECRET_KEY"] = os.environ['JWT_SECRET']
 # and you wish to connect to the database named test.
 
 app.config["MONGODB_SETTINGS"] = {
-    'db' : os.environ['MONGODB_DATABSE'], 
+    'db' : os.environ['MONGODB_DATABASE'], 
     'host': os.environ['MONGODB_HOSTNAME'],
-    'port': os.environ['MONGODB_PORT'],
+    'port': int(os.environ['MONGODB_PORT']),
     'username': os.environ['MONGODB_USERNAME'],
     'password': os.environ['MONGODB_PASSWORD']
 }
